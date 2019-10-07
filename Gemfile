@@ -13,6 +13,7 @@ gem 'sqlite3'
 group :development do
   gem 'rails_layout'
 end
+gem 'responders'
 
 
 

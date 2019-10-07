@@ -1061,6 +1061,7 @@ DEPENDENCIES
   rails (~> 6.0.0)
   rails_layout
   ransack
+  responders
   rspec-rails
   simple_form
   sqlite3

@@ -1,17 +1,23 @@
-class Api::V1::SessionsController < Clearance::UsersController
-	before_action :authenticate_via_token
-
+class Api::V1::SessionsController < Clearance::SessionsController
+	skip_authorize_resource
 	def create
-		user = User.authenticate(params[:session][:email], params[:session][:password])
-
-		if user&.valid_password?(params[:password])
-			render json: user.as_json(only:[:email]), status: created
-		else
-			head(:unauthorized)
+		@user = authenticate(params)
+		return head(:unauthorized) if @user.blank?
+		sign_in(@user) do |status|
+			if status.success?
+				render json: 'sucess'
+			else
+				head(:unauthorized)
+			end
 		end
+	end
+
+	def form_authenticity_token
+	end
+
+	def destory
+		sign_out
 	end
 
 
 end
-
-# @user = User.authenticate(params[:sessions][:email], params[:sessions][:password])

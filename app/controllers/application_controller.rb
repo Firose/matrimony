@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::API
   include Clearance::Controller
   include Clearance::Authentication
-  
+
+  before_action :authenticate_via_token
+  before_action :require_login
+
   protected
 
   def authenticate_via_token
@@ -15,7 +18,7 @@ class ApplicationController < ActionController::API
 
   def api_token
     pattern = /^Bearer /
-    header  = request.env["HTTP_AUTHORIZATION"]
+    header  = request.env['HTTP_AUTHORIZATION']
     header.gsub(pattern, '') if header && header.match(pattern)
   end
 end
