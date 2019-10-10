@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_172224) do
+ActiveRecord::Schema.define(version: 2019_10_10_091230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -122,8 +122,6 @@ ActiveRecord::Schema.define(version: 2019_10_05_172224) do
     t.integer "town_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password", limit: 255
-    t.string "confirm_password", limit: 255
     t.string "avatar_file_name", limit: 255
     t.string "avatar_content_type", limit: 255
     t.integer "avatar_file_size"
@@ -156,6 +154,9 @@ ActiveRecord::Schema.define(version: 2019_10_05_172224) do
     t.boolean "verified", default: false
     t.string "country_code"
     t.boolean "us_canada"
+    t.string "encrypted_password"
+    t.string "confirmation_token"
+    t.string "remember_token"
   end
 
   create_table "rasis", id: :serial, force: :cascade do |t|
@@ -177,17 +178,6 @@ ActiveRecord::Schema.define(version: 2019_10_05_172224) do
     t.string "name", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "email", null: false
-    t.string "encrypted_password", limit: 128, null: false
-    t.string "confirmation_token", limit: 128
-    t.string "remember_token", limit: 128, null: false
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
   create_table "visa_statuses", id: :serial, force: :cascade do |t|

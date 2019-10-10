@@ -5,11 +5,17 @@ class ApplicationController < ActionController::API
   before_action :authenticate_via_token
   before_action :require_login
 
+  rescue_from CanCan::AccessDenied do |exception|
+    msg = { errors: { status: "401", title: "Unauthorized", message: exception.message } }.to_json
+    render json: msg
+  end
+
   protected
 
   def authenticate_via_token
+
     return unless api_token
-    user = User.find_by_api_token(api_token)
+    user = Profile.find_by_api_token(api_token)
     sign_in user if user
     cookies.delete(:remember_token) # so non-browser clients don't act like browsers and persist sessions in cookies
   end

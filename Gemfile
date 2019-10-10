@@ -9,18 +9,13 @@ gem 'jbuilder'
 gem 'bootsnap', require: false
 gem 'listen'
 gem 'clearance'
-gem 'sqlite3'
-group :development do
-  gem 'rails_layout'
-end
-gem 'responders'
 
 
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
-  gem 'factory_girl_rails', require: false
+  gem 'factory_bot_rails', require: false
 end
 
 gem 'httparty'
