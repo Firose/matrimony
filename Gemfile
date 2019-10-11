@@ -9,6 +9,7 @@ gem 'jbuilder'
 gem 'bootsnap', require: false
 gem 'listen'
 gem 'clearance'
+gem 'carrierwave'
 
 
 

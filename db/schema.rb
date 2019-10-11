@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_10_091230) do
+ActiveRecord::Schema.define(version: 2019_10_11_122342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 2019_10_10_091230) do
     t.string "encrypted_password"
     t.string "confirmation_token"
     t.string "remember_token"
+    t.json "avatars"
   end
 
   create_table "rasis", id: :serial, force: :cascade do |t|

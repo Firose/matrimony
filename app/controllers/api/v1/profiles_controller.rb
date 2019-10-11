@@ -1,4 +1,4 @@
-class ProfilesController < Clearance::UsersController
+class Api::V1::ProfilesController < Clearance::UsersController
   before_action :set_profile, only: [:show, :update, :destroy]
 
   respond_to :json
@@ -13,14 +13,17 @@ class ProfilesController < Clearance::UsersController
   end
 
   def create
-    @profile = Profile.new(profile_params)
-    flash[:notice] = 'Profile was successfully created.' if @profile.save
-    respond_with(@profile)
+    @profiles = Profile.new(profile_params)
+    if @profiles.save
+      render json: { result: true, msg: ' The image is sucessfully uploaded!!'}, status: :created
+    else
+      render json: {result: false, user: @profiles.errors }, status: :unprocessable_entity
+    end
   end
 
   def update
-    flash[:notice] = 'Profile was successfully updated.' if @profile.update(profile_params)
-    respond_with(@profile)
+    @profile.update(profile_params)
+    render json: 'updated'
   end
 
   def destroy
@@ -29,11 +32,11 @@ class ProfilesController < Clearance::UsersController
   end
 
   private
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
 
-    def profile_params
-      params[:profile]
-    end
+  def profile_params
+    params.permit(:email, :password, :name, {avatars: []})
+  end
 end
